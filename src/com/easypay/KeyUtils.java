@@ -41,6 +41,6 @@ public class KeyUtils {
     public static String getOutTradeNo(){
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return sdf.format(d) + + System.currentTimeMillis();
+        return sdf.format(d) +  System.currentTimeMillis();
     }
 }

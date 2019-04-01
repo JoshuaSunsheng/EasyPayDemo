@@ -33,7 +33,7 @@ public class NewCardMain {
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
 
     //新无卡-协议支付-账户认证
-    public static void validateAccount(){
+    public static void validateAccount(int channel_type){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("name", getEncode("全渠道"));    //账户姓名
@@ -42,7 +42,7 @@ public class NewCardMain {
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("channel_type", 7);
+        sParaTemp.put("channel_type", channel_type);
         biz_content = sParaTemp.toString();
 
         service  = "easypay.pay.agreement.validate";
@@ -66,7 +66,7 @@ public class NewCardMain {
     }
 
     //新无卡-协议支付-支付
-    public static void agreementPay(String sign_no){
+    public static void agreementPay(String sign_no, int channel_type){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
@@ -76,6 +76,7 @@ public class NewCardMain {
         sParaTemp.put("order_desc", "Echannell");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("sign_no", sign_no);
+        sParaTemp.put("channel_type", channel_type);
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.agreement";
@@ -100,13 +101,13 @@ public class NewCardMain {
             }
 
             //新无卡-协议支付-账户认证
-            NewCardMain.validateAccount();
+            NewCardMain.validateAccount(8);
 
             //新无卡-协议支付-账户签约
-//            NewCardMain.agreementPayBind("demo1553656022728", "632918",1);
+//            NewCardMain.agreementPayBind("201904011554108804539", "632918",8);
 
             //新无卡-协议支付-支付
-//            NewCardMain.agreementPay("EP0000000001");
+//            NewCardMain.agreementPay("108915375", 8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
