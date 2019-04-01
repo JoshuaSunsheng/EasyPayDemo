@@ -49,7 +49,7 @@ public class OrderMain {
         service  = "easypay.qrcode.pay.push";
     }
     //二维码下单
-    public static void netBankPay(String payType){
+    public static void netBankPay(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("amount", "100");
@@ -114,7 +114,7 @@ public class OrderMain {
 //            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
-            OrderMain.netBankPay("wxNative");//unionNative
+            OrderMain.netBankPay();
 
             //订单查询
 //            OrderMain.orderQuery("2018060114615570");
