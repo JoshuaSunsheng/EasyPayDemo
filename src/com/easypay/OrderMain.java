@@ -43,7 +43,7 @@ public class OrderMain {
         sParaTemp.put("order_desc", "Echannell");
         sParaTemp.put("pay_type", payType);
 
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         biz_content = sParaTemp.toString();
 
         service  = "easypay.qrcode.pay.push";
@@ -61,7 +61,7 @@ public class OrderMain {
         sParaTemp.put("account_type", "1");
         sParaTemp.put("bank_code", "ICBC");
 
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         biz_content = sParaTemp.toString();
 
         service  = "easypay.merchant.netBankPay";
@@ -73,7 +73,7 @@ public class OrderMain {
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
 
-        sParaTemp.put("out_trade_no", out_trade_no);
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
 
         biz_content = sParaTemp.toString();
         service  = "easypay.merchant.query";
@@ -84,7 +84,7 @@ public class OrderMain {
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("refund_amount", "1");
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("origin_trade_no", origin_trade_no);
         sParaTemp.put("subject", "testRefund");
 

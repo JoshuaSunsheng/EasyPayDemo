@@ -41,7 +41,7 @@ public class NewCardMain {
         sParaTemp.put("bank_code", "999");//网联测试专用银行(银行编号请见协议支付在线文档)
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("channel_type", 7);
         biz_content = sParaTemp.toString();
 
@@ -74,7 +74,7 @@ public class NewCardMain {
         sParaTemp.put("business_time", "2017-12-07 15:35:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "Echannell");
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("sign_no", sign_no);
 
         biz_content = sParaTemp.toString();
