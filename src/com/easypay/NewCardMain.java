@@ -42,7 +42,7 @@ public class NewCardMain {
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
-        sParaTemp.put("channel_type", 1);
+        sParaTemp.put("channel_type", 7);
         biz_content = sParaTemp.toString();
 
         service  = "easypay.pay.agreement.validate";

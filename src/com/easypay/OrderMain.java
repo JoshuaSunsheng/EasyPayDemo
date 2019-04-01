@@ -114,7 +114,7 @@ public class OrderMain {
 //            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
-            OrderMain.netBankPay();
+//            OrderMain.netBankPay();
 
             //订单查询
 //            OrderMain.orderQuery("2018060114615570");
