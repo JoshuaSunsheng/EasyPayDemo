@@ -48,9 +48,27 @@ public class OrderMain {
 
         service  = "easypay.qrcode.pay.push";
     }
+    //二维码下单
+    public static void netBankPay(String payType){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("amount", "100");
+        sParaTemp.put("business_time", "2017-12-07 15:35:00");
+        sParaTemp.put("front_url", "https://www.baidu.com");
+        sParaTemp.put("notify_url", "https://www.baidu.com");
+        sParaTemp.put("subject", "Echannell");
+        sParaTemp.put("body", "商品信息");
+        sParaTemp.put("account_type", "1");
+        sParaTemp.put("bank_code", "ICBC");
+
+        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        biz_content = sParaTemp.toString();
+
+        service  = "easypay.merchant.netBankPay";
+    }
 
 
-    //新无卡-协议支付-账户签约
+    //订单查询
     public static void orderQuery(String out_trade_no){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
@@ -92,11 +110,14 @@ public class OrderMain {
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
-            //订单推送
+            //二维码订单推送
 //            OrderMain.qrcodePayPush("wxNative");//unionNative
 
+            //直连网银推单
+            OrderMain.netBankPay("wxNative");//unionNative
+
             //订单查询
-            OrderMain.orderQuery("2018060114615570");
+//            OrderMain.orderQuery("2018060114615570");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");
