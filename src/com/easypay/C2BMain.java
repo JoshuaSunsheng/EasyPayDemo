@@ -51,6 +51,8 @@ public class C2BMain {
         sParaTemp.put("validity_date", getEncode("1223"));
         biz_content = sParaTemp.toString();
 
+//        System.out.println("1112");
+        
         service  = "easypay.pay.c2b.bindcard";
     }
 
