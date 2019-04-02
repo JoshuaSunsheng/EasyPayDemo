@@ -13,8 +13,8 @@ public class KeyUtils {
     //测试商户私钥
     public static final String  TEST_MERCHANT_PRIVATE_KEY= "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJzaAhULP9enizbfkF/3+8TCfXNruSqVyME8XTaf10Eb0+0PN2Q0OMQ0w20ZVvKdYykuGVkNr4AuJnxpGZlh9t9Ojn6aobOu1/t3QW43MD0gN/ANS4GDFUpEB9d5PEJDVcOwwdZXQ33Lys+UdqSWZCqqzQzjei3TIg7tws6WerhbAgMBAAECgYEAit0DfOgBtIYzXPhelGgysMbTU+0p+Ma0/kbX63Vll9HwNO8ExiTpoONppNwLOy4VzS5v6ISSPLQfBIPz0vSFH1lKxYlWrvggHX9lBONHWMFM/PMW3mP3jF7xGJncGLEO6ZAkv7Mrh6tI3YLMPK53NXa/MhU86EIw3aHbTUcb67ECQQDL0mYuTZ/bnDc8/zvHN++8wPA4Nv7WdoTqXogSc0XFsfx+KDoFYBl/HiPmU8p6Xdi5Jcge2F7iTT7xY+AhquqzAkEAxQFhgHpbNfyiUm9k8UXPqiG3BH1uKsmGCZh5qWW5Ao3ywAybOvzpowp2KWn7uQ9DkJdMFyYkIql+ibT8gL7vuQJAFlVGhvpQctLKJq/cz/ZsGWWWrMIx6DPyWm/jPwpMcd4PyY8E1IP0Jz6ZNmql/AR+c8MVC3Qv6WIHbJHCBE5jCwJAJRghd8OSMRQkrEj1RMjUVUCL6XiEqeHQLzZakh7pOyXnM2osQGsmwuBRZ3LhRvMs0ajrVuCDpVMs1FkTwloxYQJABdWeEKtML6ysG+ldyERAg71JVo2y3DqCu/whaArv/yKMT+l8JowF9+mKGrqVsvXdKZc+M2Ax9qDMeIsOC5ki4w==";
     //测试访问地址
-//    public static String DEFAULT_URL = "https://test_nucc.bhecard.com:9088/api_gateway.do";
-    public static String DEFAULT_URL = "http://localhost:8080/api_gateway.do";
+    public static String DEFAULT_URL = "https://test_nucc.bhecard.com:9088/api_gateway.do";
+//    public static String DEFAULT_URL = "http://localhost:8080/api_gateway.do";
 //    public static String DEFAULT_URL = "https://180.168.215.67:9088/api_gateway.do";
     public static String TEST_DES_ENCODE_KEY = "VntassPfhRL9HCKO5ExOIrrt";
 
