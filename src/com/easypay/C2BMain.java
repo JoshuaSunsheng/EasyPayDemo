@@ -40,7 +40,7 @@ public class C2BMain {
     public static void c2bBindCard(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("name", getEncode("测试"));    //账户姓名
+        sParaTemp.put("name", getEncode("测试1"));    //账户姓名
         sParaTemp.put("id_no", getEncode("340827188911116311")); //身份证号
         sParaTemp.put("bank_code", "308");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
         sParaTemp.put("acc", getEncode("6225768759941717"));   //银行卡号
