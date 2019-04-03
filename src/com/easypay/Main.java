@@ -34,7 +34,7 @@ public class Main {
         JSONObject reqMap = new JSONObject();
         reqMap.put("merchant_id", merchant_id);
         reqMap.put("amount", "1");
-        reqMap.put("out_trade_no", "M" + merchant_id + System.currentTimeMillis());
+        reqMap.put("out_trade_no", KeyUtils.getOutTradeNo());
         biz_content = reqMap.toString();
         service = "trade.auth.preauth";
     }
@@ -54,14 +54,14 @@ public class Main {
         JSONObject reqMap = new JSONObject();
         reqMap.put("subject", "测试主订单");
         reqMap.put("body", service);
-        reqMap.put("out_merge_no", "M" + merchant_id + System.currentTimeMillis());
+        reqMap.put("out_merge_no", "M" + merchant_id + KeyUtils.getOutTradeNo());
 
         JSONArray jsonarray = new JSONArray();
         JSONObject orderDetail = new JSONObject();
         orderDetail.put("subject", "测试子订单1");
         orderDetail.put("body", "测试子订单1");
         orderDetail.put("merchant_id", merchant_id);
-        orderDetail.put("out_trade_no", "SUB1" + merchant_id + System.currentTimeMillis());
+        orderDetail.put("out_trade_no", "SUB1" + merchant_id + KeyUtils.getOutTradeNo());
         orderDetail.put("total_amount", "1");
         orderDetail.put("seller_email", "sellerEmail");
         orderDetail.put("buyer_email", "sellerEmail");
@@ -70,7 +70,7 @@ public class Main {
         orderDetai2.put("subject", "测试子订单2");
         orderDetai2.put("body", "测试子订单2");
         orderDetai2.put("merchant_id", merchant_id);
-        orderDetai2.put("out_trade_no", "SUB2" + merchant_id + System.currentTimeMillis());
+        orderDetai2.put("out_trade_no", "SUB2" + merchant_id + KeyUtils.getOutTradeNo());
         orderDetai2.put("total_amount", "1");
         orderDetai2.put("seller_email", "sellerEmail");
         orderDetai2.put("buyer_email", "sellerEmail");
