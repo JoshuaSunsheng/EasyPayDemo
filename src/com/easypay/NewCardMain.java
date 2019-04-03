@@ -107,7 +107,7 @@ public class NewCardMain {
 //            NewCardMain.agreementPayBind("demo201904021554170171464", "632918",8);
 
             //新无卡-协议支付-支付
-            NewCardMain.agreementPay("170453104",8);
+            NewCardMain.agreementPay("108915375",8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
