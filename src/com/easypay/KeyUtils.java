@@ -8,15 +8,15 @@ public class KeyUtils {
     /**
      * 测试参数 ###############
      */
-    public static final String TEST_DEFAULT_MERCHANT_ID = "900029000002554";
-    public static final String TEST_DEFAULT_PARTNER = "900029000002554";
+    public static final String TEST_DEFAULT_MERCHANT_ID = "900029000000354";
+    public static final String TEST_DEFAULT_PARTNER = "900029000000354";
     //测试商户私钥
-    public static final String  TEST_MERCHANT_PRIVATE_KEY= "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJzaAhULP9enizbfkF/3+8TCfXNruSqVyME8XTaf10Eb0+0PN2Q0OMQ0w20ZVvKdYykuGVkNr4AuJnxpGZlh9t9Ojn6aobOu1/t3QW43MD0gN/ANS4GDFUpEB9d5PEJDVcOwwdZXQ33Lys+UdqSWZCqqzQzjei3TIg7tws6WerhbAgMBAAECgYEAit0DfOgBtIYzXPhelGgysMbTU+0p+Ma0/kbX63Vll9HwNO8ExiTpoONppNwLOy4VzS5v6ISSPLQfBIPz0vSFH1lKxYlWrvggHX9lBONHWMFM/PMW3mP3jF7xGJncGLEO6ZAkv7Mrh6tI3YLMPK53NXa/MhU86EIw3aHbTUcb67ECQQDL0mYuTZ/bnDc8/zvHN++8wPA4Nv7WdoTqXogSc0XFsfx+KDoFYBl/HiPmU8p6Xdi5Jcge2F7iTT7xY+AhquqzAkEAxQFhgHpbNfyiUm9k8UXPqiG3BH1uKsmGCZh5qWW5Ao3ywAybOvzpowp2KWn7uQ9DkJdMFyYkIql+ibT8gL7vuQJAFlVGhvpQctLKJq/cz/ZsGWWWrMIx6DPyWm/jPwpMcd4PyY8E1IP0Jz6ZNmql/AR+c8MVC3Qv6WIHbJHCBE5jCwJAJRghd8OSMRQkrEj1RMjUVUCL6XiEqeHQLzZakh7pOyXnM2osQGsmwuBRZ3LhRvMs0ajrVuCDpVMs1FkTwloxYQJABdWeEKtML6ysG+ldyERAg71JVo2y3DqCu/whaArv/yKMT+l8JowF9+mKGrqVsvXdKZc+M2Ax9qDMeIsOC5ki4w==";
+    public static final String  TEST_MERCHANT_PRIVATE_KEY="MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIqUuxd92eEBXVneDWhfNP6XCkLcGBO1YAulexKX+OdlfZzB/4NNHkOAQQy84k3ZgIUPIk5hewLbA+XGrk9Wih5HG3ZQeFugeoTcx3vwo7AQv7KnmcKEWFNlOr/EhB3JndmcQnBRsIRRdCP+7nobfBqU0jS8dnpcQX1AtBRZRnkfAgMBAAECgYAe+u70ansZ1Q9EduKycY5MWAHAPqnXRhXppJ3l4zmOqV6ye6Aef1ADsRlZuqQw2S3lESQPN7WjRskRRiBTtjn8Atul9YeC7+QirP1K8seUP5gKB4bcjlzzl1m5dmxldkptJAmdzwYn8PRTW0+tFVyEaD/B8hKGxij4Gew0e8bwCQJBAOboG3ttBESsG2cAtmP1MfKRTjVdY7qRMXzBybcAeobBbmgCQgybVXXgjbGai+qwrQqcVRIp6p1yDWTZxVSuDWsCQQCZpBhcayOCMZR6F8dQJSuSSSIJw/GGN7IXfMYIqLxA2oGzlQ0B1DffOUe2wrid+WdpLuYCz2LYPQHDEgYM1dwdAkEAnfwhEYm9ad73wLnUEQAqdHTGtex316aP3XQZt4Q0UQ73o2IoHsgI6OYDDIlZQfIv8xqTeiIDzEXEtEPrp8yOkQJBAIWAzFZKFqHD2UO6M8vVcKX9fGFF7TH2ZX75Qc82Z9ZmyDs2sgW71QzX5hPN4cQLeqswQFeCw14orMZHfBBdKJUCQQDiWYk85okRugsWtxeJFhMEt2oUT+Kd8Yz5Aiz3J9XIS+zWtJrFlv+hXkVedPJ3xtBF32DZrCbxDn3UjXipRaCP";
     //测试访问地址
     public static String DEFAULT_URL = "https://test_nucc.bhecard.com:9088/api_gateway.do";
-//    public static String DEFAULT_URL = "http://localhost:8080/api_gateway.do";
+//    public static String DEFAULT_URL = "http://localhost:9087/api_gateway.do";
 //    public static String DEFAULT_URL = "https://180.168.215.67:9088/api_gateway.do";
-    public static String TEST_DES_ENCODE_KEY = "VntassPfhRL9HCKO5ExOIrrt";
+    public static String TEST_DES_ENCODE_KEY = "CueaiPrW9sIskbn9qkoPh9J3";
 
 
     /**
@@ -41,6 +41,6 @@ public class KeyUtils {
     public static String getOutTradeNo(){
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return sdf.format(d) + + System.currentTimeMillis();
+        return sdf.format(d) +  System.currentTimeMillis();
     }
 }

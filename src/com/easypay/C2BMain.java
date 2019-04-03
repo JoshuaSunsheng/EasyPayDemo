@@ -40,17 +40,19 @@ public class C2BMain {
     public static void c2bBindCard(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("name", getEncode("测试"));    //账户姓名
-        sParaTemp.put("id_no", getEncode("340827189311176316")); //身份证号
+        sParaTemp.put("name", getEncode("聂剑平"));    //账户姓名
+        sParaTemp.put("id_no", getEncode("340827199311106316")); //身份证号
         sParaTemp.put("bank_code", "308");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
         sParaTemp.put("acc", getEncode("6225768759941717"));   //银行卡号
 //        sParaTemp.put("acc_attr", "2"); //卡属性1 – 借记卡；2-贷记卡
-        sParaTemp.put("mobile", getEncode("18010461186")); //手机号
+        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("cvv", getEncode("123"));
         sParaTemp.put("validity_date", getEncode("1223"));
         biz_content = sParaTemp.toString();
 
+//        System.out.println("1112");
+        
         service  = "easypay.pay.c2b.bindcard";
     }
 
@@ -64,7 +66,7 @@ public class C2BMain {
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("wtaccid", "12869604");//5824  //12869604
+        sParaTemp.put("wtaccid", "5824");
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.c2b.getCode";
@@ -75,12 +77,12 @@ public class C2BMain {
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
-        sParaTemp.put("amount", "1");
-        sParaTemp.put("business_time", "2019-04-02 09:36:00");
+        sParaTemp.put("amount", "180");
+        sParaTemp.put("business_time", "2019-03-21 15:32:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "c2b");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("pay_code", "6267222962906385022");//cs:6264987519783664132 sc:6267222962906385022
+        sParaTemp.put("pay_code", "6264987519783664132");
         sParaTemp.put("pay_type", "unionBarCodePay");
 
         biz_content = sParaTemp.toString();

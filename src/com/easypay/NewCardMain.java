@@ -33,7 +33,7 @@ public class NewCardMain {
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
 
     //新无卡-协议支付-账户认证
-    public static void validateAccount(){
+    public static void validateAccount(int channel_type){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("name", getEncode("全渠道"));    //账户姓名
@@ -41,10 +41,10 @@ public class NewCardMain {
         sParaTemp.put("bank_code", "999");//网联测试专用银行(银行编号请见协议支付在线文档)
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
-        sParaTemp.put("channel_type", 8);
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+        sParaTemp.put("channel_type", channel_type);
         biz_content = sParaTemp.toString();
-        
+
         service  = "easypay.pay.agreement.validate";
     }
 
@@ -59,25 +59,25 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("orig_out_trade_no", orig_out_trade_no);
         sParaTemp.put("sms_code", sms_code);
-        sParaTemp.put("channel_type", channel_type);//7 银联  	8 网联
+        sParaTemp.put("channel_type", channel_type);//1 网联  2 银联
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.agreement.bind";
     }
 
     //新无卡-协议支付-支付
-    public static void agreementPay(String sign_no,int channelType){
+    public static void agreementPay(String sign_no, int channel_type){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
         sParaTemp.put("amount", "1");
-        sParaTemp.put("business_time", "2019-04-02 10:55:00"); 
+        sParaTemp.put("business_time", "2017-12-07 15:35:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "Echannell");
-        sParaTemp.put("out_trade_no", "demo" + KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("sign_no", sign_no);
-        sParaTemp.put("channel_type", channelType);
-        
+        sParaTemp.put("channel_type", channel_type);
+
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.agreement";
     }
@@ -101,13 +101,13 @@ public class NewCardMain {
             }
 
             //新无卡-协议支付-账户认证
-//            NewCardMain.validateAccount();
+            NewCardMain.validateAccount(8);
 
             //新无卡-协议支付-账户签约
-//            NewCardMain.agreementPayBind("demo201904021554170171464", "632918",8);
+//            NewCardMain.agreementPayBind("201904011554108804539", "632918",8);
 
             //新无卡-协议支付-支付
-            NewCardMain.agreementPay("108915375",8);
+//            NewCardMain.agreementPay("108915375", 8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
