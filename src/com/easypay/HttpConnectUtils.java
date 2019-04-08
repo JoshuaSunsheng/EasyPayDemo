@@ -140,6 +140,7 @@ public class HttpConnectUtils {
         } else {
             assert false : "不支持的类型:" + request;
         }
+        System.out.println("请求参数为：" + s_request);
         try {
             connection.connect();
             out = new PrintStream(connection.getOutputStream(), false, encoding);

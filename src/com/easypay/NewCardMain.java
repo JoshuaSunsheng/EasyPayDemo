@@ -2,6 +2,8 @@ package com.easypay;
 
 import net.sf.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +73,9 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
         sParaTemp.put("amount", "1");
-        sParaTemp.put("business_time", "2019-04-03 09:49:00");
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        sParaTemp.put("business_time", sdf.format(d) ); //"2019-12-07 15:35:00"
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "Echannell");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
