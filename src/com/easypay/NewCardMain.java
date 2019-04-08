@@ -42,7 +42,7 @@ public class NewCardMain {
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("channel_type", channel_type);
+        sParaTemp.put("channel_type", channel_type);//7银联   8 网联
         biz_content = sParaTemp.toString();
 
         service  = "easypay.pay.agreement.validate";
@@ -59,7 +59,7 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("orig_out_trade_no", orig_out_trade_no);
         sParaTemp.put("sms_code", sms_code);
-        sParaTemp.put("channel_type", channel_type);//1 网联  2 银联
+        sParaTemp.put("channel_type", channel_type);//7银联   8 网联
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.agreement.bind";
@@ -71,12 +71,12 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
         sParaTemp.put("amount", "1");
-        sParaTemp.put("business_time", "2017-12-07 15:35:00");
+        sParaTemp.put("business_time", "2019-04-03 09:49:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "Echannell");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("sign_no", sign_no);
-        sParaTemp.put("channel_type", channel_type);
+        sParaTemp.put("channel_type", channel_type);//7银联   8 网联
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.agreement";
@@ -101,13 +101,13 @@ public class NewCardMain {
             }
 
             //新无卡-协议支付-账户认证
-            NewCardMain.validateAccount(8);
+//            NewCardMain.validateAccount(8);
 
             //新无卡-协议支付-账户签约
-//            NewCardMain.agreementPayBind("201904011554108804539", "632918",8);
+//            NewCardMain.agreementPayBind("201904031554255127175", "632918",8);
 
             //新无卡-协议支付-支付
-//            NewCardMain.agreementPay("108915375", 8);
+            NewCardMain.agreementPay("255175482", 8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;

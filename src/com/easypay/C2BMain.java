@@ -1,12 +1,12 @@
 package com.easypay;
 
-import net.sf.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 /**
- * c2b测试123444
+ * c2b测试
  * @author njp
  *
  */
@@ -40,19 +40,17 @@ public class C2BMain {
     public static void c2bBindCard(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("name", getEncode("测试1"));    //账户姓名
-        sParaTemp.put("id_no", getEncode("340827188911116311")); //身份证号
-        sParaTemp.put("bank_code", "308");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
-        sParaTemp.put("acc", getEncode("6225768759941717"));   //银行卡号
+        sParaTemp.put("name", getEncode("测试"));    //账户姓名
+        sParaTemp.put("id_no", getEncode("340827199311101234")); //身份证号
+        sParaTemp.put("bank_code", "102");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
+        sParaTemp.put("acc", getEncode("6212260200089401234"));   //银行卡号
 //        sParaTemp.put("acc_attr", "2"); //卡属性1 – 借记卡；2-贷记卡
-        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("cvv", getEncode("123"));
-        sParaTemp.put("validity_date", getEncode("1223"));
+        sParaTemp.put("mobile", getEncode("18010461234")); //手机号
+        sParaTemp.put("out_trade_no", "20190408bind" + System.currentTimeMillis()+ "");
+//        sParaTemp.put("cvv", getEncode("123"));
+//        sParaTemp.put("validity_date", getEncode("1223"));
         biz_content = sParaTemp.toString();
 
-//        System.out.println("1112");
-        
         service  = "easypay.pay.c2b.bindcard";
     }
 
@@ -65,8 +63,8 @@ public class C2BMain {
     public static void getC2BCode(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("wtaccid", "5824");
+        sParaTemp.put("out_trade_no", "20190408getCode" + System.currentTimeMillis()+ "");
+        sParaTemp.put("wtaccid", "12869790");
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.c2b.getCode";
@@ -77,13 +75,15 @@ public class C2BMain {
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
-        sParaTemp.put("amount", "180");
-        sParaTemp.put("business_time", "2019-03-21 15:32:00");
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("business_time", "2019-04-08 09:46:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "c2b");
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("pay_code", "6264987519783664132");
+        sParaTemp.put("out_trade_no", "20190408c2bPay" + System.currentTimeMillis());
+        sParaTemp.put("pay_code", "6225674362133044398");
         sParaTemp.put("pay_type", "unionBarCodePay");
+        sParaTemp.put("subject", "subject");
+        sParaTemp.put("body", "body");
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.c2b.pay";
@@ -108,13 +108,13 @@ public class C2BMain {
             }
 
             //c2b绑卡
-            c2bBindCard();
+//            c2bBindCard();
 
             //c2b获取码
 //            getC2BCode();
 
             //c2b特约支付
-//            c2bPay();
+            c2bPay();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;

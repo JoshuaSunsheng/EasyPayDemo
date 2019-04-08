@@ -71,9 +71,9 @@ public class OrderMain {
     //订单查询
     public static void orderQuery(String out_trade_no){
         JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("merchant_id", "900029000002554");
 
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+        sParaTemp.put("out_trade_no", out_trade_no);
 
         biz_content = sParaTemp.toString();
         service  = "easypay.merchant.query";
@@ -117,7 +117,7 @@ public class OrderMain {
 //            OrderMain.netBankPay();
 
             //订单查询
-//            OrderMain.orderQuery("2018060114615570");
+            OrderMain.orderQuery("20190403c2bPay1554279662651");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");
