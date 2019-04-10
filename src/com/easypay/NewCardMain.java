@@ -40,7 +40,7 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("name", getEncode("全渠道"));    //账户姓名
         sParaTemp.put("id_no", getEncode("100030033330030044")); //身份证号
-        sParaTemp.put("bank_code", "999");//网联测试专用银行(银行编号请见协议支付在线文档)
+        sParaTemp.put("bank_code", "TEST");//网联测试专用银行(银行编号请见协议支付在线文档)
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());

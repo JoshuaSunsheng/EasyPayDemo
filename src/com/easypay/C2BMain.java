@@ -42,7 +42,7 @@ public class C2BMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("name", getEncode("测试"));    //账户姓名
         sParaTemp.put("id_no", getEncode("340827199311101234")); //身份证号
-        sParaTemp.put("bank_code", "102");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
+        sParaTemp.put("bank_code", "ICBC");//民生银行(银行编号请见‘特约支付-绑卡’页面的银行表)
         sParaTemp.put("acc", getEncode("6212260200089401234"));   //银行卡号
 //        sParaTemp.put("acc_attr", "2"); //卡属性1 – 借记卡；2-贷记卡
         sParaTemp.put("mobile", getEncode("18010461234")); //手机号
@@ -63,8 +63,8 @@ public class C2BMain {
     public static void getC2BCode(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", "20190408getCode" + System.currentTimeMillis()+ "");
-        sParaTemp.put("wtaccid", "12869790");
+        sParaTemp.put("out_trade_no", "20190409getCode" + System.currentTimeMillis()+ "");
+        sParaTemp.put("wtaccid", "12869826");
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.c2b.getCode";
@@ -111,10 +111,10 @@ public class C2BMain {
 //            c2bBindCard();
 
             //c2b获取码
-//            getC2BCode();
+            getC2BCode();
 
             //c2b特约支付
-            c2bPay();
+//            c2bPay();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;

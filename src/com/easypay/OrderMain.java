@@ -117,7 +117,7 @@ public class OrderMain {
 //            OrderMain.netBankPay();
 
             //订单查询
-            OrderMain.orderQuery("20190403c2bPay1554279662651");
+            OrderMain.orderQuery("201904091554779028372");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");

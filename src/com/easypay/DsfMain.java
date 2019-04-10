@@ -65,7 +65,7 @@ public class DsfMain {
     public static void dsfQuery(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", "10006");
+        sParaTemp.put("out_trade_no", "dsf1554781247666");
 
         biz_content = sParaTemp.toString();
         service  = "trade.acc.dsfpay.query";
@@ -89,10 +89,10 @@ public class DsfMain {
             }
 
             //实时代付
-            dsfPay();
+//            dsfPay();
 
             //代付查询
-//            dsfQuery();
+            dsfQuery();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
