@@ -133,7 +133,7 @@ public class NewCardMain {
             int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
             System.out.print(" \n请求地址为：" + url +
                     "\n 请求结果为：" + ret +
-                    "\n 请求参数为：" + reqMap.toString() +
+//                    "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
         }catch (Exception e){
             if(e != null){
