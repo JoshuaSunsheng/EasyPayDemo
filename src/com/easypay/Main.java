@@ -48,20 +48,20 @@ public class Main {
     }
 
 
-    //平台商户推单推送订单
-    public static void pushOrder() {
+    //合单支付-平台商户推单推送订单
+    public static void pushMergeOrder() {
         service = "easypay.merchant.merge.pay";
         JSONObject reqMap = new JSONObject();
         reqMap.put("subject", "测试主订单");
         reqMap.put("body", service);
-        reqMap.put("out_merge_no", "M" + merchant_id + KeyUtils.getOutTradeNo());
+        reqMap.put("out_merge_no", "M" + KeyUtils.getOutTradeNo());
 
         JSONArray jsonarray = new JSONArray();
         JSONObject orderDetail = new JSONObject();
         orderDetail.put("subject", "测试子订单1");
         orderDetail.put("body", "测试子订单1");
         orderDetail.put("merchant_id", merchant_id);
-        orderDetail.put("out_trade_no", "SUB1" + merchant_id + KeyUtils.getOutTradeNo());
+        orderDetail.put("out_trade_no", "SUB1" + KeyUtils.getOutTradeNo());
         orderDetail.put("total_amount", "1");
         orderDetail.put("seller_email", "sellerEmail");
         orderDetail.put("buyer_email", "sellerEmail");
@@ -70,7 +70,7 @@ public class Main {
         orderDetai2.put("subject", "测试子订单2");
         orderDetai2.put("body", "测试子订单2");
         orderDetai2.put("merchant_id", merchant_id);
-        orderDetai2.put("out_trade_no", "SUB2" + merchant_id + KeyUtils.getOutTradeNo());
+        orderDetai2.put("out_trade_no", "SUB2" +  KeyUtils.getOutTradeNo());
         orderDetai2.put("total_amount", "1");
         orderDetai2.put("seller_email", "sellerEmail");
         orderDetai2.put("buyer_email", "sellerEmail");
@@ -79,6 +79,26 @@ public class Main {
         jsonarray.add(orderDetai2);
 
         reqMap.put("order_details", jsonarray.toString());
+        biz_content = reqMap.toString();
+        System.out.println(biz_content);
+    }
+
+    //直连网银推单
+    public static void pushPortalOrder() {
+        service = "easypay.merchant.netBankPay";
+        JSONObject reqMap = new JSONObject();
+        reqMap.put("subject", "测试订单");
+        reqMap.put("body", "测试订单");
+        reqMap.put("merchant_id", merchant_id);
+        reqMap.put("out_trade_no", "SUB1" + KeyUtils.getOutTradeNo());
+        reqMap.put("bank_code", "ICBC");
+        reqMap.put("account_type", "1");
+        reqMap.put("amount", "1");
+        reqMap.put("front_url", "https://www.baidu.com");
+        reqMap.put("notify_url", "https://www.baidu.com");
+
+
+
         biz_content = reqMap.toString();
         System.out.println(biz_content);
     }
@@ -104,8 +124,11 @@ public class Main {
             //获取余额
             //Main.balnace();
 
-            //平台商户推单推送订单
-            Main.pushOrder();
+            //合单支付-平台商户推单推送订单
+//            Main.pushMergeOrder();
+
+            //直连网银推单
+            Main.pushPortalOrder();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -123,12 +146,22 @@ public class Main {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            StringBuilder resultStrBuilder = new StringBuilder();
-            int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
-            System.out.print(" \n请求地址为：" + url +
-                    "\n 请求结果为：" + ret +
-                    "\n 请求参数为：" + reqMap.toString() +
-                    "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            if(service == "easypay.merchant.netBankPay") {
+                String s_request = HttpConnectUtils.getRequestParamString((Map) reqMap, KeyUtils.TEST_DEFAULT_CHARSET);
+                System.out.println("请求链接: \n");
+                System.out.println(url + "?" + s_request);
+
+            }
+            else{
+                StringBuilder resultStrBuilder = new StringBuilder();
+                int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
+                System.out.print(" \n请求地址为：" + url +
+                        "\n 请求结果为：" + ret +
+                        "\n 请求参数为：" + reqMap.toString() +
+                        "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            }
+
+
         } catch (Exception e) {
             if (e != null) {
                 System.out.print(e.getMessage() + "\n");
