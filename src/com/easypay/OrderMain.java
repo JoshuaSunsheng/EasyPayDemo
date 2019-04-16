@@ -9,7 +9,7 @@ import java.util.Map;
 public class OrderMain {
 
     //标记生产还是测试环境
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -50,19 +50,18 @@ public class OrderMain {
     }
     //二维码下单
     public static void netBankPay(){
-        JSONObject sParaTemp = new JSONObject();
-        sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("amount", "100");
-        sParaTemp.put("business_time", "2017-12-07 15:35:00");
-        sParaTemp.put("front_url", "https://www.baidu.com");
-        sParaTemp.put("notify_url", "https://www.baidu.com");
-        sParaTemp.put("subject", "Echannell");
-        sParaTemp.put("body", "商品信息");
-        sParaTemp.put("account_type", "1");
-        sParaTemp.put("bank_code", "ICBC");
+        JSONObject reqMap = new JSONObject();
+        reqMap.put("subject", "测试订单");
+        reqMap.put("body", "测试订单");
+        reqMap.put("merchant_id", merchant_id);
+        reqMap.put("out_trade_no",  KeyUtils.getOutTradeNo());
+        reqMap.put("bank_code", "ICBC");
+        reqMap.put("account_type", "1");
+        reqMap.put("amount", "1");
+        reqMap.put("front_url", "https://www.baidu.com");
+        reqMap.put("notify_url", "https://www.baidu.com");
 
-        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        biz_content = sParaTemp.toString();
+        biz_content = reqMap.toString();
 
         service  = "easypay.merchant.netBankPay";
     }
@@ -114,10 +113,10 @@ public class OrderMain {
 //            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
-//            OrderMain.netBankPay();
+            OrderMain.netBankPay();
 
             //订单查询
-            OrderMain.orderQuery("201904091554779028372");
+//            OrderMain.orderQuery("201904091554779028372");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");
@@ -129,7 +128,7 @@ public class OrderMain {
             String charset = KeyUtils.TEST_DEFAULT_CHARSET;
 
             //根据请求参数生成的机密串
-            String sign = KeyUtils.getSign(KeyUtils.TEST_MERCHANT_PRIVATE_KEY, charset, biz_content);
+            String sign = KeyUtils.getSign(key, charset, biz_content);
             System.out.print("计算签名数据为：" + sign + "\n");
             Map<String, String> reqMap = new HashMap<String, String>(6);
             reqMap.put("biz_content", biz_content);
@@ -139,17 +138,24 @@ public class OrderMain {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            StringBuilder resultStrBuilder = new StringBuilder();
-            int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
-            System.out.print(" \n请求地址为：" + url +
-                    "\n 请求结果为：" + ret +
-                    "\n 请求参数为：" + reqMap.toString() +
-                    "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
-        }catch (Exception e){
-            if(e != null){
-                System.out.print(e.getMessage()+ "\n");
-            }else {
-                System.out.print("-----其他未知错误--------"+ "\n");
+            if (service == "easypay.merchant.netBankPay") {
+                //建议使用form表单post提交推单请求
+                System.out.println("Form请求html: \n");
+                StringUtils.createAutoFormHtml(url, reqMap, "UTF-8");
+            } else {
+                StringBuilder resultStrBuilder = new StringBuilder();
+                int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
+                System.out.print(" \n请求地址为：" + url +
+                        "\n 请求结果为：" + ret +
+                        "\n 请求参数为：" + reqMap.toString() +
+                        "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            }
+
+        } catch (Exception e) {
+            if (e != null) {
+                System.out.print(e.getMessage() + "\n");
+            } else {
+                System.out.print("-----其他未知错误--------" + "\n");
             }
         }
     }

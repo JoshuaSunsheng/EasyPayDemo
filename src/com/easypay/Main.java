@@ -9,7 +9,7 @@ import java.util.Map;
 public class Main {
 
     //标记生产还是测试环境
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -125,10 +125,7 @@ public class Main {
             //Main.balnace();
 
             //合单支付-平台商户推单推送订单
-//            Main.pushMergeOrder();
-
-            //直连网银推单
-            Main.pushPortalOrder();
+            Main.pushMergeOrder();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -146,11 +143,9 @@ public class Main {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            if(service == "easypay.merchant.netBankPay") {
-                String s_request = HttpConnectUtils.getRequestParamString((Map) reqMap, KeyUtils.TEST_DEFAULT_CHARSET);
-                System.out.println("请求链接: \n");
-                System.out.println(url + "?" + s_request);
-
+            if(service == "easypay.merchant.merge.pay") { //合单支付生产form表单
+                System.out.println("Form请求html: \n");
+                StringUtils.createAutoFormHtml(url,reqMap,"UTF-8");
             }
             else{
                 StringBuilder resultStrBuilder = new StringBuilder();
@@ -170,4 +165,8 @@ public class Main {
             }
         }
     }
+
+
+
+
 }

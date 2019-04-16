@@ -1,5 +1,9 @@
 package com.easypay;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 public class StringUtils {
     public static final String EMPTY = "";
     public static final int INDEX_NOT_FOUND = -1;
@@ -217,5 +221,42 @@ public class StringUtils {
 
     public static String lengthFix(String text, int length, String ch, boolean end) {
         return lengthFix(text, length, ch.charAt(0), end);
+    }
+
+
+    /**
+     * 功能：前台交易构造HTTP POST自动提交表单<br>
+     * @param reqUrl 表单提交地址<br>
+     * @param hiddens 以MAP形式存储的表单键值<br>
+     * @param encoding 上送请求报文域encoding字段的值<br>
+     * @return 构造好的HTTP POST交易表单<br>
+     */
+    public static String createAutoFormHtml(String reqUrl, Map<String, String> hiddens, String encoding) {
+        StringBuffer sf = new StringBuffer();
+        sf.append("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset="+encoding+"\"/></head><body>");
+        sf.append("<form id = \"pay_form\" action=\"" + reqUrl
+                + "\" method=\"post\">");
+        if (null != hiddens && 0 != hiddens.size()) {
+            Set<Map.Entry<String, String>> set = hiddens.entrySet();
+            Iterator<Map.Entry<String, String>> it = set.iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, String> ey = it.next();
+                String key = ey.getKey();
+//                String value = URLEncoder.encode(ey.getValue(), encoding) ;
+                String value = ey.getValue();
+
+                sf.append("<input type='hidden' name='" + key + "' id='"
+                        + key + "' value='" + value + "'/>");
+
+            }
+        }
+        sf.append("</form>");
+        sf.append("</body>");
+        sf.append("<script type=\"text/javascript\">");
+        sf.append("document.all.pay_form.submit();");
+        sf.append("</script>");
+        sf.append("</html>");
+        System.out.println("html: " + sf.toString());
+        return sf.toString();
     }
 }
