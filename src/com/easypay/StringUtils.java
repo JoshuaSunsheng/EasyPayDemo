@@ -259,4 +259,13 @@ public class StringUtils {
         System.out.println("html: " + sf.toString());
         return sf.toString();
     }
+
+    public static void rsaVerifySign(StringBuilder resultStrBuilder, String easypay_pub_key) throws Exception {
+        //同步返回签名，需要对字符串进行截取后，再验证签名
+        String msg =resultStrBuilder.toString();
+        String returnString = org.apache.commons.lang.StringUtils.substringBetween(msg,"response\":", ",\"sign\"");
+        String returnSign = org.apache.commons.lang.StringUtils.substringBetween(msg,",\"sign\":\"","\"}");
+        boolean isTrue=AlipaySignature.rsaCheckContent(returnString, returnSign, easypay_pub_key, "UTF-8");
+        System.out.println("验证返回签名是否正确：" + isTrue);
+    }
 }

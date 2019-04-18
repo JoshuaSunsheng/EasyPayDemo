@@ -9,7 +9,7 @@ import java.util.Map;
 public class OrderMain {
 
     //标记生产还是测试环境
-    public static boolean isTest = false;
+    public static boolean isTest = true;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -26,8 +26,11 @@ public class OrderMain {
     //请求地址
     private static String url = KeyUtils.DEFAULT_URL;
 
-    //key密钥
+    //商户私钥
     private static String key = KeyUtils.TEST_MERCHANT_PRIVATE_KEY;
+
+    //易生公钥
+    private static String easypay_pub_key = KeyUtils.TEST_EASYPAY_PUBLIC_KEY;
 
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
@@ -105,6 +108,8 @@ public class OrderMain {
                 url = KeyUtils.SC_URL;
                 //key密钥
                 key = KeyUtils.SC_MERCHANT_PRIVATE_KEY;
+                //key密钥
+                easypay_pub_key = KeyUtils.SC_EASYPAY_PUBLIC_KEY;
                 //加密密钥
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
@@ -113,10 +118,10 @@ public class OrderMain {
 //            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
-            OrderMain.netBankPay();
+//            OrderMain.netBankPay();
 
             //订单查询
-//            OrderMain.orderQuery("201904091554779028372");
+            OrderMain.orderQuery("20190417c2bPay1555489983807");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");
@@ -149,6 +154,8 @@ public class OrderMain {
                         "\n 请求结果为：" + ret +
                         "\n 请求参数为：" + reqMap.toString() +
                         "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+                //易生公钥验证返回签名
+                StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
             }
 
         } catch (Exception e) {
@@ -159,4 +166,6 @@ public class OrderMain {
             }
         }
     }
+
+
 }
