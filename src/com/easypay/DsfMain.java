@@ -1,9 +1,9 @@
 package com.easypay;
 
+import net.sf.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * 代付测试
@@ -30,8 +30,11 @@ public class DsfMain {
     //请求地址
     private static String url = KeyUtils.DEFAULT_URL;
 
-    //key密钥
-    private static String key = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIqUuxd92eEBXVneDWhfNP6XCkLcGBO1YAulexKX+OdlfZzB/4NNHkOAQQy84k3ZgIUPIk5hewLbA+XGrk9Wih5HG3ZQeFugeoTcx3vwo7AQv7KnmcKEWFNlOr/EhB3JndmcQnBRsIRRdCP+7nobfBqU0jS8dnpcQX1AtBRZRnkfAgMBAAECgYAe+u70ansZ1Q9EduKycY5MWAHAPqnXRhXppJ3l4zmOqV6ye6Aef1ADsRlZuqQw2S3lESQPN7WjRskRRiBTtjn8Atul9YeC7+QirP1K8seUP5gKB4bcjlzzl1m5dmxldkptJAmdzwYn8PRTW0+tFVyEaD/B8hKGxij4Gew0e8bwCQJBAOboG3ttBESsG2cAtmP1MfKRTjVdY7qRMXzBybcAeobBbmgCQgybVXXgjbGai+qwrQqcVRIp6p1yDWTZxVSuDWsCQQCZpBhcayOCMZR6F8dQJSuSSSIJw/GGN7IXfMYIqLxA2oGzlQ0B1DffOUe2wrid+WdpLuYCz2LYPQHDEgYM1dwdAkEAnfwhEYm9ad73wLnUEQAqdHTGtex316aP3XQZt4Q0UQ73o2IoHsgI6OYDDIlZQfIv8xqTeiIDzEXEtEPrp8yOkQJBAIWAzFZKFqHD2UO6M8vVcKX9fGFF7TH2ZX75Qc82Z9ZmyDs2sgW71QzX5hPN4cQLeqswQFeCw14orMZHfBBdKJUCQQDiWYk85okRugsWtxeJFhMEt2oUT+Kd8Yz5Aiz3J9XIS+zWtJrFlv+hXkVedPJ3xtBF32DZrCbxDn3UjXipRaCP";
+    //商户私钥
+    private static String key = KeyUtils.TEST_MERCHANT_PRIVATE_KEY;
+
+    //易生公钥
+    private static String easypay_pub_key = KeyUtils.TEST_EASYPAY_PUBLIC_KEY;
 
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
@@ -82,8 +85,10 @@ public class DsfMain {
                 partner = KeyUtils.SC_DEFAULT_PARTNER;
                 //请求地址
                 url = KeyUtils.SC_URL;
-                //key密钥
+                //商户私钥
                 key = KeyUtils.SC_MERCHANT_PRIVATE_KEY;
+                //易生公钥
+                easypay_pub_key = KeyUtils.SC_EASYPAY_PUBLIC_KEY;
                 //加密密钥
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
@@ -116,6 +121,8 @@ public class DsfMain {
                     "\n 请求结果为：" + ret +
                     "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            //易生公钥验证返回签名
+            StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
         }catch (Exception e){
             System.out.print(e.getMessage()+ "\n");
         }
