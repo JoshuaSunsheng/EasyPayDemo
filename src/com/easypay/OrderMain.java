@@ -106,22 +106,22 @@ public class OrderMain {
                 partner = KeyUtils.SC_DEFAULT_PARTNER;
                 //请求地址
                 url = KeyUtils.SC_URL;
-                //key密钥
+                //商户私钥
                 key = KeyUtils.SC_MERCHANT_PRIVATE_KEY;
-                //key密钥
+                //易生公钥
                 easypay_pub_key = KeyUtils.SC_EASYPAY_PUBLIC_KEY;
                 //加密密钥
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
             //二维码订单推送
-//            OrderMain.qrcodePayPush("wxNative");//unionNative
+            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
 //            OrderMain.netBankPay();
 
             //订单查询
-            OrderMain.orderQuery("20190417c2bPay1555489983807");
+//            OrderMain.orderQuery("20190417c2bPay1555489983807");
 
             //订单退款
 //            OrderMain.refund("2018060114615570");
