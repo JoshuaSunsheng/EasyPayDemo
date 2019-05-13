@@ -1,9 +1,9 @@
 package com.easypay;
 
+import net.sf.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * 无跳转快捷测试
@@ -30,8 +30,11 @@ public class NopagesMain {
     //请求地址
     private static String url = KeyUtils.DEFAULT_URL;
 
-    //key密钥
+    //商户私钥
     private static String key = KeyUtils.TEST_MERCHANT_PRIVATE_KEY;
+
+    //易生公钥
+    private static String easypay_pub_key = KeyUtils.TEST_EASYPAY_PUBLIC_KEY;
 
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
@@ -42,11 +45,11 @@ public class NopagesMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("amount", "1");
-        sParaTemp.put("acc", getEncode("6225768759941717"));   //银行卡号
-        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
-        sParaTemp.put("cvv", getEncode("427"));
+        sParaTemp.put("acc", getEncode("6225768000000000"));   //银行卡号
+        sParaTemp.put("mobile", getEncode("18011111111")); //手机号
+        sParaTemp.put("cvv", getEncode("111"));
         sParaTemp.put("validity_year", getEncode("20"));
-        sParaTemp.put("validity_month", getEncode("12"));
+        sParaTemp.put("validity_month", getEncode("09"));
         sParaTemp.put("subject", "subject");
         sParaTemp.put("body", "body");
         sParaTemp.put("seller_email", "18679106330@gmail.com");
@@ -68,8 +71,8 @@ public class NopagesMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("out_trade_no", orderId);
         sParaTemp.put("amount", 1);
-        sParaTemp.put("acc", getEncode("6225768759941717"));   //银行卡号
-        sParaTemp.put("mobile", getEncode("18010461286")); //手机号
+        sParaTemp.put("acc", getEncode("6225768000000000"));   //银行卡号
+        sParaTemp.put("mobile", getEncode("18011111111")); //手机号
         sParaTemp.put("vcode", vcode);
 
         biz_content = sParaTemp.toString();
@@ -88,8 +91,10 @@ public class NopagesMain {
                 partner = KeyUtils.SC_DEFAULT_PARTNER;
                 //请求地址
                 url = KeyUtils.SC_URL;
-                //key密钥
+                //商户私钥
                 key = KeyUtils.SC_MERCHANT_PRIVATE_KEY;
+                //易生公钥
+                easypay_pub_key = KeyUtils.SC_EASYPAY_PUBLIC_KEY;
                 //加密密钥
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
@@ -99,7 +104,7 @@ public class NopagesMain {
 
 
             //银联无跳转支付
-            pay("201904241556100526887","276366");
+            pay("201904241556100526887","276361");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -123,6 +128,8 @@ public class NopagesMain {
                     "\n 请求结果为：" + ret +
                     "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            //易生公钥验证返回签名
+            StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
         }catch (Exception e){
             System.out.print(e.getMessage()+ "\n");
         }

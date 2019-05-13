@@ -1,9 +1,9 @@
 package com.easypay;
 
+import net.sf.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  * c2b测试
@@ -30,8 +30,11 @@ public class C2BMain {
     //请求地址
     private static String url = KeyUtils.DEFAULT_URL;
 
-    //key密钥
+    //商户私钥
     private static String key = KeyUtils.TEST_MERCHANT_PRIVATE_KEY;
+
+    //易生公钥
+    private static String easypay_pub_key = KeyUtils.TEST_EASYPAY_PUBLIC_KEY;
 
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
@@ -101,8 +104,10 @@ public class C2BMain {
                 partner = KeyUtils.SC_DEFAULT_PARTNER;
                 //请求地址
                 url = KeyUtils.SC_URL;
-                //key密钥
+                //商户私钥
                 key = KeyUtils.SC_MERCHANT_PRIVATE_KEY;
+                //易生公钥
+                easypay_pub_key = KeyUtils.SC_EASYPAY_PUBLIC_KEY;
                 //加密密钥
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
@@ -138,6 +143,8 @@ public class C2BMain {
                     "\n 请求结果为：" + ret +
                     "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            //易生公钥验证返回签名
+            StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
         }catch (Exception e){
             System.out.print(e.getMessage()+ "\n");
         }
