@@ -43,7 +43,7 @@ public class NewCardMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("name", getEncode("全渠道"));    //账户姓名
         sParaTemp.put("id_no", getEncode("100030033330030044")); //身份证号
-        sParaTemp.put("bank_code", "TEST");//网联测试专用银行(银行编号请见协议支付在线文档)
+        sParaTemp.put("bank_code", "ICBC");//银行编号(请见协议支付在线文档)
         sParaTemp.put("acc", getEncode("6226188887788788"));   //银行卡号
         sParaTemp.put("mobile", getEncode("137666666666")); //手机号
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
@@ -83,6 +83,7 @@ public class NewCardMain {
         sParaTemp.put("order_desc", "Echannell");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("sign_no", sign_no);
+        sParaTemp.put("subject", "subject");
         sParaTemp.put("channel_type", channel_type);//7银联   8 网联
 
         biz_content = sParaTemp.toString();
@@ -110,13 +111,13 @@ public class NewCardMain {
             }
 
             //新无卡-协议支付-账户认证
-            NewCardMain.validateAccount(8);
+//            NewCardMain.validateAccount(8);
 
             //新无卡-协议支付-账户签约
-//            NewCardMain.agreementPayBind("201904031554255127175", "632918",8);
+//            NewCardMain.agreementPayBind("201905141557818365653", "123456",8);
 
             //新无卡-协议支付-支付
-//            NewCardMain.agreementPay("255175482", 8);
+            NewCardMain.agreementPay("ES2019041800105873", 8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -138,7 +139,7 @@ public class NewCardMain {
             int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
             System.out.print(" \n请求地址为：" + url +
                     "\n 请求结果为：" + ret +
-//                    "\n 请求参数为：" + reqMap.toString() +
+                    "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
             //易生公钥验证返回签名
             StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
