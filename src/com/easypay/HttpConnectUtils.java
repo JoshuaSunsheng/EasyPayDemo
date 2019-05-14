@@ -125,7 +125,7 @@ public class HttpConnectUtils {
     }
 
     //推送send
-    private static Map<String, Object> _sendRequest(String encoding, Object request, HttpURLConnection connection) {
+    private static Map<String, Object> _sendRequest(String encoding, Object request, HttpURLConnection connection) throws UnsupportedEncodingException {
         int i_ret = 0;
         PrintStream out = null;
         String s_request = "";
@@ -140,7 +140,7 @@ public class HttpConnectUtils {
         } else {
             assert false : "不支持的类型:" + request;
         }
-        System.out.println("请求参数为：" + s_request);
+        System.out.println("请求参数为：" + getRequestParamString((Map) request, encoding, false));
         try {
             connection.connect();
             out = new PrintStream(connection.getOutputStream(), false, encoding);
