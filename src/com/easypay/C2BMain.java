@@ -49,7 +49,7 @@ public class C2BMain {
         sParaTemp.put("acc", getEncode("6212260200089401234"));   //银行卡号
 //        sParaTemp.put("acc_attr", "2"); //卡属性1 – 借记卡；2-贷记卡
         sParaTemp.put("mobile", getEncode("18010461234")); //手机号
-        sParaTemp.put("out_trade_no", "20190408bind" + System.currentTimeMillis()+ "");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
 //        sParaTemp.put("cvv", getEncode("123"));
 //        sParaTemp.put("validity_date", getEncode("1223"));
         biz_content = sParaTemp.toString();
@@ -66,7 +66,7 @@ public class C2BMain {
     public static void getC2BCode(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", "20190409getCode" + System.currentTimeMillis()+ "");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("wtaccid", "12869826");
 
         biz_content = sParaTemp.toString();
@@ -82,7 +82,7 @@ public class C2BMain {
         sParaTemp.put("business_time", "2019-04-08 09:46:00");
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "c2b");
-        sParaTemp.put("out_trade_no", "20190408c2bPay" + System.currentTimeMillis());
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("pay_code", "6225674362133044398");
         sParaTemp.put("pay_type", "unionBarCodePay");
         sParaTemp.put("subject", "subject");

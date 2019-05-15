@@ -43,7 +43,7 @@ public class DsfMain {
     public static void dsfPay(){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", "dsf" + System.currentTimeMillis()+ "");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("type", 1);//代付类型 固定传1
         sParaTemp.put("nbkno", "313100001274"); //联行号
 //        sParaTemp.put("bank_code", "308");//民生银行(银行编号请见‘代付’页面底部)
@@ -65,10 +65,10 @@ public class DsfMain {
     }
 
     //代付查询
-    public static void dsfQuery(){
+    public static void dsfQuery(String outTradeNo){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", "dsf1554781247666");
+        sParaTemp.put("out_trade_no", outTradeNo);
 
         biz_content = sParaTemp.toString();
         service  = "trade.acc.dsfpay.query";
@@ -97,7 +97,7 @@ public class DsfMain {
 //            dsfPay();
 
             //代付查询
-            dsfQuery();
+            dsfQuery("dsf1554781247666");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;

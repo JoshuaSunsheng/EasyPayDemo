@@ -32,6 +32,9 @@ public class CheckMain {
 
     //key密钥
     private static String key = KeyUtils.TEST_MERCHANT_PRIVATE_KEY;
+    
+    //易生公钥
+    private static String easypay_pub_key = KeyUtils.TEST_EASYPAY_PUBLIC_KEY;
 
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
@@ -99,6 +102,8 @@ public class CheckMain {
                     "\n 请求结果为：" + ret +
                     "\n 请求参数为：" + reqMap.toString() +
                     "\n 返回内容为：" + resultStrBuilder.toString() + "\n");
+            //易生公钥验证返回签名
+            StringUtils.rsaVerifySign(resultStrBuilder, easypay_pub_key);
         }catch (Exception e){
             System.out.print(e.getMessage()+ "\n");
         }
