@@ -6,11 +6,11 @@ import java.util.Map;
 import net.sf.json.JSONObject;
 
 /**
- * 现金账户转账测试
+ * 账户测试
  * @author njp
  *
  */
-public class TransferAccMain {
+public class AccountMain {
 	
 	//标记生产还是测试环境
     public static boolean isTest = true;
@@ -64,6 +64,19 @@ public class TransferAccMain {
         biz_content = sParaTemp.toString();
         service  = "trade.acc.account.transferAccQuery";
     }
+    
+    //结算账户提现到现金账户
+    public static void withdrawAcc(){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("out_trade_no", "wda" + System.currentTimeMillis()+ "");
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("remark", "测试");
+        sParaTemp.put("type", 1);
+        biz_content = sParaTemp.toString();
+
+        service  = "trade.acc.account.withdrawAcc";
+    }
 
     public static void main(String[] args) {
         //易生请求示例子
@@ -86,7 +99,10 @@ public class TransferAccMain {
 //            transferAcc();
 
             //现金账户转账查询
-            transferAccQuery("transfer1557815016869");
+//            transferAccQuery("transfer1557815016869");
+            
+            //结算账户提现到现金账户
+            withdrawAcc();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
