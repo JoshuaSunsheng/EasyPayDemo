@@ -67,7 +67,7 @@ public class Auth {
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
-            Auth.authentication("13764610737");
+            Auth.authentication("13766666666"); //手机号若送了为4要素， 没有送为3要素
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
