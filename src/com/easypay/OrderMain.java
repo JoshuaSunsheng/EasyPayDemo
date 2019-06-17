@@ -69,6 +69,23 @@ public class OrderMain {
         service  = "easypay.merchant.netBankPay";
     }
 
+    public static void easyPay(){
+        JSONObject reqMap = new JSONObject();
+        reqMap.put("subject", "测试订单");
+        reqMap.put("body", "测试订单");
+        reqMap.put("merchant_id", merchant_id);
+        reqMap.put("out_trade_no",  KeyUtils.getOutTradeNo());
+        reqMap.put("bank_code", "ICBC");
+        reqMap.put("account_type", "1000");
+        reqMap.put("amount", "1");
+        reqMap.put("order_type", "100");
+        reqMap.put("front_url", "https://www.baidu.com");
+        reqMap.put("notify_url", "https://www.baidu.com");
+
+        biz_content = reqMap.toString();
+
+        service  = "easypay.merchant.easyPay";
+    }
 
     //订单查询
     public static void orderQuery(String out_trade_no){
@@ -115,10 +132,13 @@ public class OrderMain {
             }
 
             //二维码订单推送
-            OrderMain.qrcodePayPush("wxNative");//unionNative
+//            OrderMain.qrcodePayPush("wxNative");//unionNative
 
             //直连网银推单
-//            OrderMain.netBankPay();
+            OrderMain.netBankPay();
+
+            //标准收银台推单
+//            OrderMain.easyPay();
 
             //订单查询
 //            OrderMain.orderQuery("20190417c2bPay1555489983807");
@@ -143,7 +163,7 @@ public class OrderMain {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            if (service == "easypay.merchant.netBankPay") {
+            if (service == "easypay.merchant.netBankPay" || service == "easypay.merchant.easyPay") {
                 //建议使用form表单post提交推单请求
                 System.out.println("Form请求html: \n");
                 StringUtils.createAutoFormHtml(url, reqMap, "UTF-8");
