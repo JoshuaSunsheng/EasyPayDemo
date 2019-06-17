@@ -1,9 +1,12 @@
 package com.easypay;
 
 import net.sf.json.JSONObject;
+import org.apache.commons.codec.binary.Base64;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Auth {
 
@@ -35,18 +38,103 @@ public class Auth {
         return StringUtils.bytesToHexStr(DesUtil.desEncode(data, DES_ENCODE_KEY));
     }
 
-    //新无卡-协议支付-账户认证
-    public static void authentication(String mobile){
+    //三、四要素鉴权认证
+    public static void authentication(String name, String mobile, String idNo, String acc){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("name", getEncode("全渠道"));        //姓名
-        sParaTemp.put("id_no", getEncode("350426199999999999")); //身份证
-        sParaTemp.put("acc", getEncode("62261900000000"));   //银行卡号
+        sParaTemp.put("name", getEncode(name));
+        sParaTemp.put("id_no", getEncode(idNo));
+        sParaTemp.put("acc", getEncode(acc));   //民生
         sParaTemp.put("mobile", getEncode(mobile));
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
 
         biz_content = sParaTemp.toString();
         service  = "easypay.auth.authentication";
+    }
+
+    //将file转化成string
+    private static String ReaderJson(String filePath)throws IOException {
+        //对一串字符进行操作
+        StringBuffer fileData = new StringBuffer();
+        //
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        //缓冲区使用完必须关掉
+        reader.close();
+        return fileData.toString();
+    }
+
+    public static boolean isBase64Encode(String content){
+        if(content.length()%4!=0){
+            return false;
+        }
+        String pattern = "^[a-zA-Z0-9/+]*={0,2}$";
+        return Pattern.matches(pattern, content);
+    }
+
+
+    //识别静态身份证图像上的文字信息
+    public static void ocrIDcard(String filePath) throws Exception {
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+
+        sParaTemp.put("image_str", encodeBase64File(filePath));
+//        sParaTemp.put("image_str", ReaderJson(filePath));
+
+
+        sParaTemp.put("url", "");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+
+        biz_content = sParaTemp.toString();
+        service  = "easypay.auth.ocr.IDcard";
+    }
+
+    //人证比对
+    public static void verfyFaceAndIDNoByCop(String name, String idNo, String filePath) throws Exception {
+        JSONObject sParaTemp = _verfyFaceAndIDNoByCop(name, idNo, filePath);
+        sParaTemp.put("image_str", encodeBase64File(filePath));
+        sParaTemp.put("url", "");
+        biz_content = sParaTemp.toString();
+        service  = "easypay.auth.verify.faceAndIdNoByCop";
+    }
+
+    //人证比对 配合手机调用SDK 生成protobuf文件
+    public static void verfyFaceAndIDNoByCopSDK(String name, String idNo, String filePath) throws Exception {
+        JSONObject sParaTemp = _verfyFaceAndIDNoByCop(name, idNo, filePath);
+        sParaTemp.put("liveness_data_file_str", encodeBase64File(filePath));
+        sParaTemp.put("liveness_data_url", "");
+        biz_content = sParaTemp.toString();
+        service  = "easypay.auth.verify.faceAndIdNoByCopSDK";
+    }
+
+    public static JSONObject _verfyFaceAndIDNoByCop(String name, String idNo, String filePath) throws Exception {
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("name", getEncode(name));
+        sParaTemp.put("id_no", getEncode(idNo));
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+        return sParaTemp;
+    }
+
+
+    /**
+     * <p>将文件转成base64 字符串</p>
+     * @param path 文件路径
+     * @return
+     * @throws Exception
+     */
+    public static String encodeBase64File(String path) throws Exception {
+        File file = new File(path);
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int)file.length()];
+        inputFile.read(buffer);
+        inputFile.close();
+        return new Base64().encodeToString(buffer);
     }
 
     public static void main(String[] args) {
@@ -67,7 +155,19 @@ public class Auth {
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
-            Auth.authentication("13766666666"); //手机号若送了为4要素， 没有送为3要素
+            //三四要素鉴权
+//            Auth.authentication("黄亮", "13201117161", "11302119731003111","1114850293021111");
+
+            //OCR 身份证照片识别
+//            Auth.ocrIDcard("D:/handhold.jfif");
+
+            //人证对比SDK
+//            Auth.verfyFaceAndIDNoByCopSDK("黄亮", "11302119731003111", "D:/proto_buf_file");
+
+            //人证对比
+            Auth.verfyFaceAndIDNoByCop("黄亮", "11302119731003111", "C:\\Users\\suhtc\\Pictures\\Camera Roll\\self.jpg");
+
+
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
