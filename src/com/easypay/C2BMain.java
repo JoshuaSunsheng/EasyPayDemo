@@ -63,18 +63,22 @@ public class C2BMain {
     }
 
     //c2b获取码
-    public static void getC2BCode(){
+    public static void getC2BCode(String wtaccid){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("wtaccid", "12869826");
+        sParaTemp.put("wtaccid", wtaccid);
+        sParaTemp.put("device_id", "A0-C5-89-AE-A4-25");
+        sParaTemp.put("device_type", "4");
+        sParaTemp.put("source_ip", "114.86.194.17");
+        sParaTemp.put("accountid_hash", "8dcf7d1da221d91f513520eca5c25c48");
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.c2b.getCode";
     }
 
     //c2b支付
-    public static void c2bPay(){
+    public static void c2bPay(String pay_code){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("seller_email", "18679106330@gmail.com");
@@ -83,7 +87,7 @@ public class C2BMain {
         sParaTemp.put("notify_url", "https://www.baidu.com");
         sParaTemp.put("order_desc", "c2b");
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
-        sParaTemp.put("pay_code", "6225674362133044398");
+        sParaTemp.put("pay_code", pay_code);
         sParaTemp.put("pay_type", "unionBarCodePay");
         sParaTemp.put("subject", "subject");
         sParaTemp.put("body", "body");
@@ -116,10 +120,10 @@ public class C2BMain {
 //            c2bBindCard();
 
             //c2b获取码
-            getC2BCode();
+            getC2BCode("ES2019041700105793");
 
             //c2b特约支付
-//            c2bPay();
+//            c2bPay("6226229270603618238");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
