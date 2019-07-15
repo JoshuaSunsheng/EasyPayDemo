@@ -9,7 +9,7 @@ import java.util.Map;
 public class Main {
 
     //标记生产还是测试环境
-    public static boolean isTest = false;
+    public static boolean isTest = true;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -93,10 +93,11 @@ public class Main {
         reqMap.put("subject", "测试订单");
         reqMap.put("body", "测试订单");
         reqMap.put("merchant_id", merchant_id);
-        reqMap.put("out_trade_no", "SUB1" + KeyUtils.getOutTradeNo());
-        reqMap.put("bank_code", "ICBC");
-        reqMap.put("account_type", "1");
+        reqMap.put("out_trade_no",  KeyUtils.getOutTradeNo());
+        reqMap.put("bank_code", "UNIONPAY_FRONT");
+        reqMap.put("account_type", "1"); //1 借记 2 贷记 3 企业
         reqMap.put("amount", "1");
+        reqMap.put("accNo", "6253000000001234");    //快捷卡号
         reqMap.put("front_url", "https://www.baidu.com");
         reqMap.put("notify_url", "https://www.baidu.com");
 
@@ -128,7 +129,10 @@ public class Main {
             //Main.balnace();
 
             //合单支付-平台商户推单推送订单
-            Main.pushMergeOrder();
+//            Main.pushMergeOrder();
+
+            //直连网银推单
+            Main.pushPortalOrder();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
