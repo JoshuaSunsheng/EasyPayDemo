@@ -37,6 +37,50 @@ public class NewCardMain {
     //加密密钥
     private static String DES_ENCODE_KEY = KeyUtils.TEST_DES_ENCODE_KEY;
 
+
+    //新无卡-直接支付-账户认证
+    public static void directPayValidateAccount(){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+
+//        sParaTemp.put("seller_email", "18679106330@gmail.com");
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("business_time", "2019-04-09 10:35:00");
+        sParaTemp.put("notify_url", "https://www.baidu.com");
+        sParaTemp.put("subject", "Echannell");
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+
+        sParaTemp.put("name", getEncode("全渠道"));
+        sParaTemp.put("id_no", getEncode("300000555522225555"));//身份证
+//        sParaTemp.put("acc", getEncode("62222222222222")); //银行卡号
+
+        sParaTemp.put("mobile", getEncode("13855444554"));
+
+        biz_content = sParaTemp.toString();
+
+        service  = "easypay.pay.directPay.validateAccount";
+    }
+
+    //新无卡-直接支付
+    public static void directPay(String orderId,String sms_code){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+
+        sParaTemp.put("out_trade_no",orderId);
+
+        sParaTemp.put("name", getEncode("全渠道"));
+        sParaTemp.put("id_no", getEncode("300000555522225555"));//身份证
+//        sParaTemp.put("acc", getEncode("62222222222222")); //银行卡号
+
+        sParaTemp.put("mobile", getEncode("13855444554"));
+
+        sParaTemp.put("sms_code",sms_code);
+
+        biz_content = sParaTemp.toString();
+
+        service  = "easypay.pay.directPay";
+    }
+
     //新无卡-协议支付-账户认证
     public static void validateAccount(int channel_type){
         JSONObject sParaTemp = new JSONObject();
@@ -110,6 +154,12 @@ public class NewCardMain {
                 DES_ENCODE_KEY = KeyUtils.SC_DES_ENCODE_KEY;
             }
 
+            //新无卡-直接支付-账户认证
+            NewCardMain.directPayValidateAccount();
+//            新无卡-直接支付
+//            NewCardMain.directPay("201906251561446701747", "683222");
+
+
             //新无卡-协议支付-账户认证
 //            NewCardMain.validateAccount(8);
 
@@ -117,7 +167,7 @@ public class NewCardMain {
 //            NewCardMain.agreementPayBind("201905141557818365653", "123456",8);
 
             //新无卡-协议支付-支付
-            NewCardMain.agreementPay("ES2019041800105873", 8);
+//            NewCardMain.agreementPay("ES2019041800105873", 8);
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
