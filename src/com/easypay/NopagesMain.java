@@ -100,11 +100,11 @@ public class NopagesMain {
             }
 
             //无跳转快捷获取验证码
-//            sendSMS();
+            sendSMS();
 
 
             //银联无跳转支付
-            pay("201904241556100526887","276361");
+//            pay("201904241556100526887","276361");
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
@@ -121,7 +121,7 @@ public class NopagesMain {
             reqMap.put("sign_type", sign_type);
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
-
+            System.out.println("biz_content: " + biz_content);
             StringBuilder resultStrBuilder = new StringBuilder();
             int ret = HttpConnectUtils.sendRequest(url, KeyUtils.TEST_DEFAULT_CHARSET, reqMap, 30000, 60000, "POST", resultStrBuilder, null);
             System.out.print(" \n请求地址为：" + url +
