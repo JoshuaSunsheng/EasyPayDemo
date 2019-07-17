@@ -150,7 +150,7 @@ public class Main {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            if(service == "easypay.merchant.merge.pay") { //合单支付生产form表单
+            if(service == "easypay.merchant.merge.pay" || service == "easypay.merchant.netBankPay") { //合单支付生产form表单
                 System.out.println("Form请求html: \n");
                 StringUtils.createAutoFormHtml(url,reqMap,"UTF-8");
             }
