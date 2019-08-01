@@ -90,8 +90,8 @@ public class Main {
     public static void pushPortalOrder() {
         service = "easypay.merchant.netBankPay";
         JSONObject reqMap = new JSONObject();
-        reqMap.put("subject", "测试订单");
-        reqMap.put("body", "测试订单");
+        reqMap.put("subject", "直连网银推单");
+        reqMap.put("body", "直连网银推单");
         reqMap.put("merchant_id", merchant_id);
         reqMap.put("out_trade_no",  KeyUtils.getOutTradeNo());
         reqMap.put("bank_code", "UNIONPAY_FRONT");
@@ -102,6 +102,27 @@ public class Main {
         reqMap.put("notify_url", "https://www.baidu.com");
 
 
+
+        biz_content = reqMap.toString();
+        System.out.println(biz_content);
+    }
+
+
+    //直连网银推单
+    public static void pushCashierOrder() {
+        service = "easypay.merchant.easyPay";
+        JSONObject reqMap = new JSONObject();
+        reqMap.put("subject", "标准收银台推单");
+        reqMap.put("body", "标准收银台推单");
+        reqMap.put("merchant_id", merchant_id);
+        reqMap.put("out_trade_no",  KeyUtils.getOutTradeNo());
+        reqMap.put("bank_code", "EASYPAY");
+        reqMap.put("account_type", "1"); //1 借记 2 贷记 3 企业
+        reqMap.put("amount", "1");
+//        reqMap.put("accNo", "62260978003");    //快捷卡号
+//        reqMap.put("accNo", "6253000000001234");    //快捷卡号
+        reqMap.put("front_url", "https://www.baidu.com");
+        reqMap.put("notify_url", "https://www.baidu.com");
 
         biz_content = reqMap.toString();
         System.out.println(biz_content);
@@ -134,6 +155,9 @@ public class Main {
             //直连网银推单
             Main.pushPortalOrder();
 
+            //标准收银台推单
+//            Main.pushCashierOrder();
+
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
             //编码类型
@@ -150,7 +174,7 @@ public class Main {
             reqMap.put("charset", charset);
             reqMap.put("sign", sign);
 
-            if(service == "easypay.merchant.merge.pay" || service == "easypay.merchant.netBankPay") { //合单支付生产form表单
+            if(service == "easypay.merchant.merge.pay" || service == "easypay.merchant.netBankPay" || service == "easypay.merchant.easyPay") { //合单支付生产form表单
                 System.out.println("Form请求html: \n");
                 StringUtils.createAutoFormHtml(url,reqMap,"UTF-8");
             }
