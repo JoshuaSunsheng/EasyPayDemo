@@ -13,7 +13,7 @@ import java.util.Map;
 public class NopagesMain {
 
 	//标记生产还是测试环境
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -47,9 +47,9 @@ public class NopagesMain {
         sParaTemp.put("amount", "1");
         sParaTemp.put("acc", getEncode("6225768000000000"));   //银行卡号
         sParaTemp.put("mobile", getEncode("18011111111")); //手机号
-        sParaTemp.put("cvv", getEncode("111"));
-        sParaTemp.put("validity_year", getEncode("20"));
-        sParaTemp.put("validity_month", getEncode("09"));
+//        sParaTemp.put("cvv", getEncode("111"));
+//        sParaTemp.put("validity_year", getEncode("20"));
+//        sParaTemp.put("validity_month", getEncode("09"));
         sParaTemp.put("subject", "subject");
         sParaTemp.put("body", "body");
         sParaTemp.put("seller_email", "18679106330@gmail.com");
@@ -112,7 +112,7 @@ public class NopagesMain {
             String charset = KeyUtils.TEST_DEFAULT_CHARSET;
 
             //根据请求参数生成的机密串
-            String sign = KeyUtils.getSign(KeyUtils.TEST_MERCHANT_PRIVATE_KEY, charset, biz_content);
+            String sign = KeyUtils.getSign(key, charset, biz_content);
             System.out.print("计算签名数据为：" + sign + "\n");
             Map<String, String> reqMap = new HashMap<String, String>(6);
             reqMap.put("biz_content", biz_content);
