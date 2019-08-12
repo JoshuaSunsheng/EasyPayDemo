@@ -193,7 +193,10 @@ public class DesUtil {
 			IllegalBlockSizeException, IllegalStateException,
 			UnsupportedEncodingException, InvalidKeySpecException {
 		DESKeySpec keySpec = new DESKeySpec(key.getBytes(CHAR_ENCODING));
-		Cipher cipher = Cipher.getInstance("DES");
+//		Cipher cipher = Cipher.getInstance("DES"); //默认ECB/PKCS5Padding
+		Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+//        java的PKCS5Padding 对应C#的des.Padding = PaddingMode.PKCS7;
+//        还需要设置C#的des.Mode = CipherMode.ECB;
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
 		cipher.init(mode, keyFactory.generateSecret(keySpec));
 		return cipher;
