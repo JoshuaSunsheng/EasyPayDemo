@@ -121,7 +121,8 @@ public class DesUtil {
   
 	/**
 	 * 单des加密
-	 * 
+	 * java 使用ECB/PKCS5Padding
+     * C# 使用ECB   PKCS7
 	 * @param data
 	 * @param key
 	 * @return
