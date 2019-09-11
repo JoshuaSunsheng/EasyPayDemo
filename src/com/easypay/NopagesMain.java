@@ -13,7 +13,7 @@ import java.util.Map;
 public class NopagesMain {
 
 	//标记生产还是测试环境
-    public static boolean isTest = false;
+    public static boolean isTest = true;
 
     //根据接口文档生成对应的json请求字符串
     private static String biz_content = "";
@@ -45,7 +45,7 @@ public class NopagesMain {
         sParaTemp.put("merchant_id", merchant_id);
         sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
         sParaTemp.put("amount", "1");
-        sParaTemp.put("acc", getEncode("6225768000000000"));   //银行卡号
+        sParaTemp.put("acc", getEncode("6216261000000000018"));   //银行卡号
         sParaTemp.put("mobile", getEncode("18011111111")); //手机号
 //        sParaTemp.put("cvv", getEncode("111"));
 //        sParaTemp.put("validity_year", getEncode("20"));
@@ -69,7 +69,7 @@ public class NopagesMain {
     public static void pay(String orderId,String vcode){
         JSONObject sParaTemp = new JSONObject();
         sParaTemp.put("merchant_id", merchant_id);
-        sParaTemp.put("out_trade_no", orderId);
+        sParaTemp.put("orig_out_trade_no", orderId);
         sParaTemp.put("amount", 1);
         sParaTemp.put("acc", getEncode("6225768000000000"));   //银行卡号
         sParaTemp.put("mobile", getEncode("18011111111")); //手机号
@@ -77,6 +77,44 @@ public class NopagesMain {
 
         biz_content = sParaTemp.toString();
         service  = "easypay.pay.nopages.pay";
+    }
+
+    //无跳转快捷获取验证码
+    public static void directPay(){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("out_trade_no", KeyUtils.getOutTradeNo());
+        sParaTemp.put("amount", "1");
+        sParaTemp.put("acc", getEncode("6216261000000000018"));   //银行卡号
+//        sParaTemp.put("mobile", getEncode("13552535506")); //手机号
+//        sParaTemp.put("cvv", getEncode("111"));
+//        sParaTemp.put("validity_year", getEncode("20"));
+//        sParaTemp.put("validity_month", getEncode("09"));
+        sParaTemp.put("subject", "subject");
+        sParaTemp.put("body", "body");
+        sParaTemp.put("seller_email", "18679106330@gmail.com");
+        sParaTemp.put("notify_url", "https://www.baidu.com");
+
+        biz_content = sParaTemp.toString();
+
+        service  = "easypay.pay.nopages.directPay";
+    }
+    //无跳转-前台页面开通
+    public static void openFront(){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+//        sParaTemp.put("acc", getEncode("6221558812340000"));   //银行卡号
+        sParaTemp.put("notify_url", "https://www.baidu.com");
+        biz_content = sParaTemp.toString();
+        service  = "easypay.pay.nopages.openFront";
+    }
+    //无跳转-开通查询
+    public static void openQuery(){
+        JSONObject sParaTemp = new JSONObject();
+        sParaTemp.put("merchant_id", merchant_id);
+        sParaTemp.put("acc", getEncode("6216261000000000018"));   //银行卡号
+        biz_content = sParaTemp.toString();
+        service  = "easypay.pay.nopages.openQuery";
     }
 
     public static void main(String[] args) {
@@ -100,11 +138,17 @@ public class NopagesMain {
             }
 
             //无跳转快捷获取验证码
-            sendSMS();
-
-
+//            sendSMS();
             //银联无跳转支付
-//            pay("201904241556100526887","276361");
+//            pay("201909111568172878184","392111");
+
+
+            //银联无跳转-无短验支付, 若提示未开通，需要调用前台页面开通接口进行开通
+            directPay();
+            //银联无跳转-前台页面开通
+//            openFront();
+            //银联无跳转-开通查询, 若提示未开通，需要调用前台页面开通接口进行开通
+//            openQuery();
 
             //加密类型，默认RSA
             String sign_type = KeyUtils.TEST_DEFAULT_ENCODE_TYPE;
